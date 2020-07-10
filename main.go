@@ -19,20 +19,18 @@ func main() {
 	//增加一个recover在 中间件的执行链的最内层，不破坏原来Recover handler的结构，在最内层渲染并且返回api请求结果
 	r.Use(ErrHandler())
 
-	// 设置一个get请求的路由，url为/ping, 处理函数（或者叫控制器函数）是一个闭包函数。
 	r.POST("/api/user/register", RegisterHandler)
 	r.POST("/api/user/login", LoginHandler)
 	r.POST("/api/user/addUser", AddUserHandler)
 	r.POST("/api/user/delUser", DelUserHandler)
 	r.GET("/api/user/checkUserStatus", CheckUserStatusHandler)
-	r.GET("/api/user/checkUserAuthorityHandler", CheckUserAuthorityHandler)
-	r.GET("/api/user/getUserAuthorityListHandler", CheckUserAuthorityHandler)
-	r.GET("/api/user/getUserAuthorityListHandler", GetUserAuthorityListHandler)
-	r.GET("/api/user/getAuthorityListHandler", GetAuthorityListHandler)
-	r.POST("/api/user/addUserRoleHandler", AddUserRoleHandler)
-	r.POST("/api/user/delUserRoleHandler", DelUserRoleHandler)
-	r.GET("/api/user/getRoleListHandler", GetRoleListHandler)
-	r.GET("/api/user/getUserRoleListHandler", GetUserRoleListHandler)
+	r.GET("/api/user/checkUserAuthority", CheckUserAuthorityHandler)
+	r.GET("/api/user/getUserAuthorityList", GetUserAuthorityListHandler)
+	r.GET("/api/user/getAuthorityList", GetAuthorityListHandler)
+	r.POST("/api/user/addUserRole", AddUserRoleHandler)
+	r.POST("/api/user/delUserRole", DelUserRoleHandler)
+	r.GET("/api/user/getRoleList", GetRoleListHandler)
+	r.GET("/api/user/getUserRoleList", GetUserRoleListHandler)
 
 	err := r.Run(":9091") // 监听并在 9091 上启动服务
 	if err != nil {
