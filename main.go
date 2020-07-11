@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 	. "github.com/livegoplayer/go_helper"
 
 	. "github.com/livegoplayer/go_user/controller"
@@ -21,6 +22,9 @@ func main() {
 
 	//解决跨域问题的中间件
 	r.Use(Cors())
+
+	//更换binding
+	binding.Validator = ValidatorV10
 
 	r.POST("/api/user/register", RegisterHandler)
 	r.POST("/api/user/login", LoginHandler)
