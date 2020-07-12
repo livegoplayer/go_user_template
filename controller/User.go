@@ -2,6 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
 	myHelper "github.com/livegoplayer/go_helper"
 	"github.com/livegoplayer/go_user_rpc/user"
 
@@ -10,7 +11,22 @@ import (
 
 func RegisterHandler(c *gin.Context) {
 	registerRequest := &userpb.RegisterRequest{}
-	err := c.Bind(registerRequest)
+
+	//todo
+	err := binding.FormMultipart.Bind(c.Request, registerRequest)
+
+	myHelper.SuccessResp(c, "ok", c.Request.MultipartForm)
+	myHelper.SuccessResp(c, "ok", registerRequest)
+
+	if err != nil {
+		myHelper.CheckError(err)
+	}
+
+	//myHelper.SuccessResp(c, "ok", c.ContentType())
+	//
+	//myHelper.SuccessResp(c, "ok", c.Request.Header)
+	//
+	//myHelper.SuccessResp(c, "ok", registerRequest)
 
 	userClient := user.GetUserClient()
 	res, err := userClient.Register(c, registerRequest)

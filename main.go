@@ -44,6 +44,4 @@ func main() {
 		fmt.Printf("user server start error : " + err.Error())
 		return
 	}
-
-	fmt.Printf("user server is running !")
 }
