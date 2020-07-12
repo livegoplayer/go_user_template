@@ -2,7 +2,6 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/gin-gonic/gin/binding"
 	myHelper "github.com/livegoplayer/go_helper"
 	"github.com/livegoplayer/go_user_rpc/user"
 
@@ -10,20 +9,25 @@ import (
 )
 
 func RegisterHandler(c *gin.Context) {
+	captchaId := c.Request.FormValue("captchaId")
+	answer := c.Request.FormValue("answer")
+
+	//验证一下二维码是否正确
+	CaptchaRes := myHelper.VerifyCaptchaWithId(captchaId, answer)
+	if !CaptchaRes {
+		myHelper.ErrorResp(c, 1, "验证码验证失败")
+	}
+
 	registerRequest := &userpb.RegisterRequest{}
 
 	//todo
-	err := binding.FormMultipart.Bind(c.Request, registerRequest)
-
-	if err != nil {
-		myHelper.CheckError(err)
-	}
+	err := c.Bind(registerRequest)
+	myHelper.CheckError(err, "绑定数据失败")
 
 	userClient := user.GetUserClient()
 	res, err := userClient.Register(c, registerRequest)
 
 	myHelper.CheckError(err, "新建用户失败")
-
 	data := res.GetData()
 
 	myHelper.SuccessResp(c, "ok", data)
