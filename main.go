@@ -38,6 +38,7 @@ func main() {
 	r.POST("/api/user/delUserRole", DelUserRoleHandler)
 	r.GET("/api/user/getRoleList", GetRoleListHandler)
 	r.GET("/api/user/getUserRoleList", GetUserRoleListHandler)
+	r.GET("/api/captcha/getCaptcha", CaptchaHandler)
 
 	err := r.Run(":9091") // 监听并在 9091 上启动服务
 	if err != nil {
