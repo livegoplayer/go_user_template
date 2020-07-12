@@ -22,7 +22,7 @@ func RegisterHandler(c *gin.Context) {
 
 	//todo
 	err := c.Bind(registerRequest)
-	myHelper.CheckError(err, "绑定数据失败")
+	myHelper.CheckError(err, "数据验证失败")
 
 	userClient := user.GetUserClient()
 	res, err := userClient.Register(c, registerRequest)
