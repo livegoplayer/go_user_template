@@ -23,6 +23,9 @@ func main() {
 	//解决跨域问题的中间件
 	r.Use(Cors())
 
+	//加载.env文件
+	LoadEnv()
+
 	//更换binding
 	binding.Validator = ValidatorV10
 

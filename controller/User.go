@@ -1,9 +1,12 @@
 package controller
 
 import (
+	"time"
+
 	"github.com/gin-gonic/gin"
 	myHelper "github.com/livegoplayer/go_helper"
 	"github.com/livegoplayer/go_user_rpc/user"
+	"github.com/spf13/viper"
 
 	userpb "github.com/livegoplayer/go_user_rpc/user/grpc"
 )
@@ -43,6 +46,11 @@ func LoginHandler(c *gin.Context) {
 	myHelper.CheckError(err, "登录失败")
 
 	data := res.GetData()
+
+	//设置本域名下的cookie
+	if data.Uid > 0 {
+		c.SetCookie("us_user_cookie", data.Token, int(time.Hour.Seconds()*6), "/", viper.GetString("host")+viper.GetString("port"), false, true)
+	}
 
 	myHelper.SuccessResp(c, "ok", data)
 }
