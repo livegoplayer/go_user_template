@@ -20,11 +20,11 @@ func main() {
 	//增加一个recover在 中间件的执行链的最内层，不破坏原来Recover handler的结构，在最内层渲染并且返回api请求结果
 	r.Use(ErrHandler())
 
-	//解决跨域问题的中间件
-	r.Use(Cors())
-
 	//加载.env文件
 	LoadEnv()
+
+	//解决跨域问题的中间件
+	r.Use(Cors())
 
 	//更换binding
 	binding.Validator = ValidatorV10

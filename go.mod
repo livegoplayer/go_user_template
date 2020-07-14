@@ -13,13 +13,13 @@ require (
 	github.com/jonboulle/clockwork v0.2.0 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/lib/pq v1.7.0 // indirect
-	github.com/livegoplayer/go_helper v1.0.24
-	github.com/livegoplayer/go_user_rpc v1.0.8
+	github.com/livegoplayer/go_helper v1.0.29
+	github.com/livegoplayer/go_user_rpc v1.0.15
 	github.com/mitchellh/mapstructure v1.3.2 // indirect
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/pelletier/go-toml v1.8.0 // indirect
 	github.com/smartystreets/assertions v1.1.1 // indirect
-	github.com/spf13/afero v1.3.1 // indirect
+	github.com/spf13/afero v1.3.2 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
