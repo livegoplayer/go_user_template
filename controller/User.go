@@ -81,16 +81,32 @@ func DelUserHandler(c *gin.Context) {
 	myHelper.SuccessResp(c, "ok", data)
 }
 
+type checkUserStatusRes struct {
+	isLogin     bool
+	userSession *userpb.UserSessions
+	token       string
+}
+
 func CheckUserStatusHandler(c *gin.Context) {
+	token, err := c.Cookie("us_user_cookie")
+	myHelper.CheckError(err, "获取cookie失败")
+
+	//如果没有token，证明没有登录
+	data := &checkUserStatusRes{}
+	if token == "" {
+		myHelper.SuccessResp(c, "ok", data)
+	}
+
 	checkUserStatusRequest := &userpb.CheckUserStatusRequest{}
-	err := c.Bind(checkUserStatusRequest)
+	checkUserStatusRequest.Token = token
 
 	userClient := user.GetUserClient()
 	res, err := userClient.CheckUserStatus(c, checkUserStatusRequest)
-
 	myHelper.CheckError(err, "检查用户登录状态失败")
 
-	data := res.GetData()
+	data.userSession = res.GetData().UserSession
+	data.isLogin = res.GetData().IsLogin
+	data.token = res.GetData().Token
 
 	myHelper.SuccessResp(c, "ok", data)
 }
