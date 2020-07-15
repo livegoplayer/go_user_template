@@ -82,9 +82,9 @@ func DelUserHandler(c *gin.Context) {
 }
 
 type checkUserStatusRes struct {
-	isLogin     bool
-	userSession *userpb.UserSessions
-	token       string
+	IsLogin     bool                 `json:"isLogin"`
+	UserSession *userpb.UserSessions `json:"userSession"`
+	Token       string               `json:"token"`
 }
 
 func CheckUserStatusHandler(c *gin.Context) {
@@ -104,9 +104,9 @@ func CheckUserStatusHandler(c *gin.Context) {
 	res, err := userClient.CheckUserStatus(c, checkUserStatusRequest)
 	myHelper.CheckError(err, "检查用户登录状态失败")
 
-	data.userSession = res.GetData().UserSession
-	data.isLogin = res.GetData().IsLogin
-	data.token = res.GetData().Token
+	data.UserSession = res.GetData().UserSession
+	data.IsLogin = res.GetData().IsLogin
+	data.Token = res.GetData().Token
 
 	myHelper.SuccessResp(c, "ok", data)
 }
