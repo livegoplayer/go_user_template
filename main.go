@@ -27,8 +27,18 @@ func main() {
 	//改造access log, 插入到数据库
 	r.Use(myLogger.GetGinAccessFileLogger(viper.GetString("access_log_file_path"), viper.GetString("access_log_file_name")))
 
-	//增加一个recover在 中间件的执行链的最内层，不破坏原来Recover handler的结构，在最内层渲染并且返回api请求结果
-	r.Use(ErrHandler())
+	//设置gin的运行模式
+	switch viper.GetString("ENV") {
+	case PRODUCTION_ENV:
+		gin.SetMode(gin.ReleaseMode)
+	case DEVELOPMENT_ENV:
+		gin.SetMode(gin.DebugMode)
+		//额外放置一个可以在控制台打印access_log的中间件
+		r.Use(gin.Logger())
+	default:
+		gin.SetMode(gin.DebugMode)
+		r.Use(gin.Logger())
+	}
 
 	//解决跨域问题的中间件
 	r.Use(Cors())
