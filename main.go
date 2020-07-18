@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	. "github.com/livegoplayer/go_helper"
+	myLogger "github.com/livegoplayer/go_logger"
 
 	. "github.com/livegoplayer/go_user/controller"
 )
@@ -13,10 +14,16 @@ import (
 func main() {
 	// 初始化一个http服务对象
 	//默认有写入控制台的日志
-	r := gin.Default()
 	// 把这两个处理器替换
+	r := gin.New()
+	r.Use(gin.Recovery())
 	r.NoMethod(HandleNotFound)
 	r.NoRoute(HandleNotFound)
+
+	//gin的格式化参数
+	//改造access log, 插入到数据库
+	r.Use(myLogger.GetGinAccessFileLogger())
+
 	//增加一个recover在 中间件的执行链的最内层，不破坏原来Recover handler的结构，在最内层渲染并且返回api请求结果
 	r.Use(ErrHandler())
 

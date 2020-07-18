@@ -6,21 +6,13 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
 	myHelper "github.com/livegoplayer/go_helper"
-	"github.com/livegoplayer/go_user_rpc/dbHelper"
-	"github.com/livegoplayer/go_user_rpc/model"
 )
 
 var redisClient *redis.Client
 var prefix = ""
 
 func MyTestHandler(c *gin.Context) {
-	db := dbHelper.GetDB()
-
-	userList := []*model.User{}
-
-	db = db.Find(&userList)
-
-	myHelper.SuccessResp(c, "ok", userList)
+	myHelper.SuccessResp(c, "ok")
 }
 
 func GetRedisClient() *redis.Client {
