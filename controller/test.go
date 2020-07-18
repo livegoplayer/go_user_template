@@ -1,26 +1,26 @@
 package controller
 
 import (
-	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
-	helper "github.com/livegoplayer/go_helper"
+	myHelper "github.com/livegoplayer/go_helper"
+	"github.com/livegoplayer/go_user_rpc/dbHelper"
+	"github.com/livegoplayer/go_user_rpc/model"
 )
 
 var redisClient *redis.Client
 var prefix = ""
 
 func MyTestHandler(c *gin.Context) {
-	session := &helper.UserSession{}
-	key := "user_login_status_session_uid_" + strconv.Itoa(13)
-	helper.SuccessResp(c, "ok", key)
+	db := dbHelper.GetDB()
 
-	json := GetRedisKey(key).Val()
-	res := helper.JsonDecode(helper.StringToBytes(json), session)
+	userList := []*model.User{}
 
-	helper.SuccessResp(c, "ok", res)
+	db = db.Find(&userList)
+
+	myHelper.SuccessResp(c, "ok", userList)
 }
 
 func GetRedisClient() *redis.Client {

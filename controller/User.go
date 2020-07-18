@@ -53,6 +53,13 @@ func LoginHandler(c *gin.Context) {
 	myHelper.SuccessResp(c, "ok", data)
 }
 
+func LogoutHandler(c *gin.Context) {
+	//设置本域名下的cookie
+	c.SetCookie("us_user_cookie", "", -1, "/", "", false, false)
+
+	myHelper.SuccessResp(c, "ok")
+}
+
 func AddUserHandler(c *gin.Context) {
 	addUserRequest := &userpb.AddUserRequest{}
 	err := c.Bind(addUserRequest)
@@ -61,6 +68,20 @@ func AddUserHandler(c *gin.Context) {
 	res, err := userClient.AddUser(c, addUserRequest)
 
 	myHelper.CheckError(err, "添加用户失败")
+
+	data := res.GetData()
+
+	myHelper.SuccessResp(c, "ok", data)
+}
+
+func GetUserListHandler(c *gin.Context) {
+	//获取用户列表，需要权限验证
+	userClient := user.GetUserClient()
+
+	getUserList := &userpb.GetUserListRequest{}
+	res, err := userClient.GetUserList(c, getUserList)
+
+	myHelper.CheckError(err, "获取用户列表")
 
 	data := res.GetData()
 

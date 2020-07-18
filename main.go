@@ -31,6 +31,7 @@ func main() {
 
 	r.POST("/api/user/register", RegisterHandler)
 	r.POST("/api/user/login", LoginHandler)
+	r.POST("/api/user/logout", LogoutHandler)
 	r.POST("/api/user/addUser", AddUserHandler)
 	r.POST("/api/user/delUser", DelUserHandler)
 	r.GET("/api/user/checkUserStatus", CheckUserStatusHandler)
@@ -41,6 +42,7 @@ func main() {
 	r.POST("/api/user/delUserRole", DelUserRoleHandler)
 	r.GET("/api/user/getRoleList", GetRoleListHandler)
 	r.GET("/api/user/getUserRoleList", GetUserRoleListHandler)
+	r.GET("/api/user/getUserList", GetUserListHandler)
 	r.GET("/api/captcha/getCaptcha", CaptchaHandler)
 	r.GET("/test", MyTestHandler)
 
