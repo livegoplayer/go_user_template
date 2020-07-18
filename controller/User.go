@@ -79,6 +79,9 @@ func GetUserListHandler(c *gin.Context) {
 	userClient := user.GetUserClient()
 
 	getUserList := &userpb.GetUserListRequest{}
+	err := c.Bind(getUserList)
+	myHelper.CheckError(err, "获取用户列表")
+
 	res, err := userClient.GetUserList(c, getUserList)
 
 	myHelper.CheckError(err, "获取用户列表")
