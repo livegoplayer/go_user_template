@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin/binding"
 	. "github.com/livegoplayer/go_helper"
 	myLogger "github.com/livegoplayer/go_logger"
+	"github.com/spf13/viper"
 
 	. "github.com/livegoplayer/go_user/controller"
 )
@@ -20,15 +21,14 @@ func main() {
 	r.NoMethod(HandleNotFound)
 	r.NoRoute(HandleNotFound)
 
+	//加载.env文件
+	LoadEnv()
 	//gin的格式化参数
 	//改造access log, 插入到数据库
-	r.Use(myLogger.GetGinAccessFileLogger())
+	r.Use(myLogger.GetGinAccessFileLogger(viper.GetString("access_log_file_path"), viper.GetString("access_log_file_name")))
 
 	//增加一个recover在 中间件的执行链的最内层，不破坏原来Recover handler的结构，在最内层渲染并且返回api请求结果
 	r.Use(ErrHandler())
-
-	//加载.env文件
-	LoadEnv()
 
 	//解决跨域问题的中间件
 	r.Use(Cors())
