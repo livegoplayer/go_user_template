@@ -25,7 +25,7 @@ func main() {
 	LoadEnv()
 	//gin的格式化参数
 	//改造access log, 插入到数据库
-	r.Use(myLogger.GetGinAccessFileLogger(viper.GetString("access_log_file_path"), viper.GetString("access_log_file_name")))
+	r.Use(myLogger.GetGinAccessFileLogger(viper.GetString("log.access_log_file_path"), viper.GetString("log.access_log_file_name")))
 
 	//设置gin的运行模式
 	switch viper.GetString("ENV") {
