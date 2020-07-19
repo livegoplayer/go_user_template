@@ -28,8 +28,10 @@ func main() {
 	r.Use(myLogger.GetGinAccessFileLogger(viper.GetString("log.access_log_file_path"), viper.GetString("log.access_log_file_name")))
 
 	//app_log
-	myLogger.SetLogger(myLogger.GetMysqlLogger(viper.GetString("app_log_mysql_host"), viper.GetString("app_log_mysql_port"), viper.GetString("app_log_mysql_db_name")))
+	appLogger := myLogger.GetMysqlLogger(viper.GetString("log.app_log_mysql_host"), viper.GetString("log.app_log_mysql_port"), viper.GetString("log.app_log_mysql_db_name"))
+	myLogger.SetLogger(appLogger)
 
+	myLogger.Info("test")
 	//设置gin的运行模式
 	switch viper.GetString("ENV") {
 	case PRODUCTION_ENV:
