@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin/binding"
 	. "github.com/livegoplayer/go_helper"
 	myLogger "github.com/livegoplayer/go_logger"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 
 	. "github.com/livegoplayer/go_user/controller"
@@ -23,15 +24,7 @@ func main() {
 
 	//加载.env文件
 	LoadEnv()
-	//gin的格式化参数
-	//改造access log, 插入到数据库
-	r.Use(myLogger.GetGinAccessFileLogger(viper.GetString("log.access_log_file_path"), viper.GetString("log.access_log_file_name")))
 
-	//app_log
-	appLogger := myLogger.GetMysqlLogger(viper.GetString("log.app_log_mysql_host"), viper.GetString("log.app_log_mysql_port"), viper.GetString("log.app_log_mysql_db_name"), viper.GetString("log.app_log_mysql_table_name"), viper.GetString("log.app_log_mysql_user"), viper.GetString("log.app_log_mysql_pass"))
-	myLogger.SetLogger(appLogger)
-
-	myLogger.Info("test")
 	//设置gin的运行模式
 	switch viper.GetString("ENV") {
 	case PRODUCTION_ENV:
@@ -45,10 +38,28 @@ func main() {
 		r.Use(gin.Logger())
 	}
 
+	//gin的格式化参数
+	//改造access log, 输出到文件
+	r.Use(myLogger.GetGinAccessFileLogger(viper.GetString("log.access_log_file_path"), viper.GetString("log.access_log_file_name")))
+	//如果是debug模式的话，使用logger另外打印一份输出到控制台的logger
+	if gin.IsDebugging() {
+		r.Use(gin.Logger())
+	}
+
+	//app_log
+	//如果是debug模式的话，直接打印到控制台
+	var appLogger *logrus.Logger
+	if gin.IsDebugging() {
+		appLogger = myLogger.GetConsoleLogger()
+	} else {
+		appLogger = myLogger.GetMysqlLogger(viper.GetString("log.app_log_mysql_host"), viper.GetString("log.app_log_mysql_port"), viper.GetString("log.app_log_mysql_db_name"), viper.GetString("log.app_log_mysql_table_name"), viper.GetString("log.app_log_mysql_user"), viper.GetString("log.app_log_mysql_pass"))
+	}
+	myLogger.SetLogger(appLogger)
+
 	//解决跨域问题的中间件
 	r.Use(Cors())
 
-	//更换binding
+	//更换校验器
 	binding.Validator = ValidatorV10
 
 	r.POST("/api/user/register", RegisterHandler)

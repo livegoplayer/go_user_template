@@ -14,11 +14,12 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/lib/pq v1.7.0 // indirect
 	github.com/livegoplayer/go_helper v1.0.37
-	github.com/livegoplayer/go_logger v1.0.11
+	github.com/livegoplayer/go_logger v1.0.12
 	github.com/livegoplayer/go_user_rpc v1.0.27
 	github.com/mitchellh/mapstructure v1.3.2 // indirect
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/pelletier/go-toml v1.8.0 // indirect
+	github.com/sirupsen/logrus v1.6.0
 	github.com/smartystreets/assertions v1.1.1 // indirect
 	github.com/spf13/afero v1.3.2 // indirect
 	github.com/spf13/cast v1.3.1 // indirect

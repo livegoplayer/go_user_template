@@ -13,6 +13,7 @@ func MyTestHandler(c *gin.Context) {
 	//myLogger.Info("test")
 	myHelper.SuccessResp(c, "ok")
 	myHelper.SuccessResp(c, "ok")
+	panic("sdfkj")
 }
 
 func GetRedisClient() *redis.Client {
