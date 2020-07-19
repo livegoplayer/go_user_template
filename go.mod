@@ -14,7 +14,7 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/lib/pq v1.7.0 // indirect
 	github.com/livegoplayer/go_helper v1.0.32
-	github.com/livegoplayer/go_logger v1.0.6
+	github.com/livegoplayer/go_logger v1.0.8
 	github.com/livegoplayer/go_user_rpc v1.0.27
 	github.com/mitchellh/mapstructure v1.3.2 // indirect
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
@@ -24,6 +24,7 @@ require (
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/spf13/viper v1.7.0
 	github.com/stretchr/testify v1.6.1 // indirect
 	github.com/tebeka/strftime v0.1.4 // indirect
 	golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899 // indirect

@@ -27,6 +27,9 @@ func main() {
 	//改造access log, 插入到数据库
 	r.Use(myLogger.GetGinAccessFileLogger(viper.GetString("log.access_log_file_path"), viper.GetString("log.access_log_file_name")))
 
+	//app_log
+	myLogger.SetLogger(myLogger.GetMysqlLogger(viper.GetString("app_log_mysql_host"), viper.GetString("app_log_mysql_port"), viper.GetString("app_log_mysql_db_name")))
+
 	//设置gin的运行模式
 	switch viper.GetString("ENV") {
 	case PRODUCTION_ENV:
