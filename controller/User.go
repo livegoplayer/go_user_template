@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	ginHelper "github.com/livegoplayer/go_gin_helper"
 	myHelper "github.com/livegoplayer/go_helper"
 	"github.com/livegoplayer/go_user_rpc/user"
 	userpb "github.com/livegoplayer/go_user_rpc/user/grpc"
@@ -16,22 +17,22 @@ func RegisterHandler(c *gin.Context) {
 	//验证一下二维码是否正确
 	CaptchaRes := myHelper.VerifyCaptchaWithId(captchaId, answer)
 	if !CaptchaRes {
-		myHelper.ErrorResp(c, 1, "验证码验证失败")
+		ginHelper.ErrorResp(c, 1, "验证码验证失败")
 	}
 
 	registerRequest := &userpb.RegisterRequest{}
 
 	//todo
 	err := c.Bind(registerRequest)
-	myHelper.CheckError(err, "数据验证失败")
+	ginHelper.CheckError(err, "数据验证失败")
 
 	userClient := user.GetUserClient()
 	res, err := userClient.Register(c, registerRequest)
 
-	myHelper.CheckError(err, "新建用户失败")
+	ginHelper.CheckError(err, "新建用户失败")
 	data := res.GetData()
 
-	myHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp(c, "ok", data)
 }
 
 func LoginHandler(c *gin.Context) {
@@ -41,7 +42,7 @@ func LoginHandler(c *gin.Context) {
 	userClient := user.GetUserClient()
 	res, err := userClient.Login(c, loginRequest)
 
-	myHelper.CheckError(err, "登录失败")
+	ginHelper.CheckError(err, "登录失败")
 
 	data := res.GetData()
 
@@ -50,14 +51,14 @@ func LoginHandler(c *gin.Context) {
 		c.SetCookie("us_user_cookie", data.Token, int(time.Hour.Seconds()*6), "/", "", false, false)
 	}
 
-	myHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp(c, "ok", data)
 }
 
 func LogoutHandler(c *gin.Context) {
 	//设置本域名下的cookie
 	c.SetCookie("us_user_cookie", "", -1, "/", "", false, false)
 
-	myHelper.SuccessResp(c, "ok")
+	ginHelper.SuccessResp(c, "ok")
 }
 
 func AddUserHandler(c *gin.Context) {
@@ -67,11 +68,11 @@ func AddUserHandler(c *gin.Context) {
 	userClient := user.GetUserClient()
 	res, err := userClient.AddUser(c, addUserRequest)
 
-	myHelper.CheckError(err, "添加用户失败")
+	ginHelper.CheckError(err, "添加用户失败")
 
 	data := res.GetData()
 
-	myHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp(c, "ok", data)
 }
 
 func GetUserListHandler(c *gin.Context) {
@@ -80,15 +81,15 @@ func GetUserListHandler(c *gin.Context) {
 
 	getUserList := &userpb.GetUserListRequest{}
 	err := c.Bind(getUserList)
-	myHelper.CheckError(err, "获取用户列表")
+	ginHelper.CheckError(err, "获取用户列表")
 
 	res, err := userClient.GetUserList(c, getUserList)
 
-	myHelper.CheckError(err, "获取用户列表")
+	ginHelper.CheckError(err, "获取用户列表")
 
 	data := res.GetData()
 
-	myHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp(c, "ok", data)
 }
 
 func DelUserHandler(c *gin.Context) {
@@ -98,11 +99,11 @@ func DelUserHandler(c *gin.Context) {
 	userClient := user.GetUserClient()
 	res, err := userClient.DelUser(c, delUserRequest)
 
-	myHelper.CheckError(err, "删除用户失败")
+	ginHelper.CheckError(err, "删除用户失败")
 
 	data := res.GetData()
 
-	myHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp(c, "ok", data)
 }
 
 type checkUserStatusRes struct {
@@ -113,12 +114,12 @@ type checkUserStatusRes struct {
 
 func CheckUserStatusHandler(c *gin.Context) {
 	token, err := c.Cookie("us_user_cookie")
-	myHelper.CheckError(err, "获取cookie失败")
+	ginHelper.CheckError(err, "获取cookie失败")
 
 	//如果没有token，证明没有登录
 	data := &checkUserStatusRes{}
 	if token == "" {
-		myHelper.SuccessResp(c, "ok", data)
+		ginHelper.SuccessResp(c, "ok", data)
 	}
 
 	checkUserStatusRequest := &userpb.CheckUserStatusRequest{}
@@ -126,13 +127,13 @@ func CheckUserStatusHandler(c *gin.Context) {
 
 	userClient := user.GetUserClient()
 	res, err := userClient.CheckUserStatus(c, checkUserStatusRequest)
-	myHelper.CheckError(err, "检查用户登录状态失败")
+	ginHelper.CheckError(err, "检查用户登录状态失败")
 
 	data.UserSession = res.GetData().UserSession
 	data.IsLogin = res.GetData().IsLogin
 	data.Token = res.GetData().Token
 
-	myHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp(c, "ok", data)
 }
 
 func CheckUserAuthorityHandler(c *gin.Context) {
@@ -142,11 +143,11 @@ func CheckUserAuthorityHandler(c *gin.Context) {
 	userClient := user.GetUserClient()
 	res, err := userClient.CheckUserAuthority(c, checkUserAuthorityRequest)
 
-	myHelper.CheckError(err, "检查用户登录状态失败")
+	ginHelper.CheckError(err, "检查用户登录状态失败")
 
 	data := res.GetData()
 
-	myHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp(c, "ok", data)
 }
 
 func GetUserAuthorityListHandler(c *gin.Context) {
@@ -156,11 +157,11 @@ func GetUserAuthorityListHandler(c *gin.Context) {
 	userClient := user.GetUserClient()
 	res, err := userClient.GetUserAuthorityList(c, getUserAuthorityListRequest)
 
-	myHelper.CheckError(err, "获取用户权限列表失败")
+	ginHelper.CheckError(err, "获取用户权限列表失败")
 
 	data := res.GetData()
 
-	myHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp(c, "ok", data)
 }
 
 func GetAuthorityListHandler(c *gin.Context) {
@@ -170,11 +171,11 @@ func GetAuthorityListHandler(c *gin.Context) {
 	userClient := user.GetUserClient()
 	res, err := userClient.GetAuthorityList(c, getAuthorityListRequest)
 
-	myHelper.CheckError(err, "获取权限列表失败")
+	ginHelper.CheckError(err, "获取权限列表失败")
 
 	data := res.GetData()
 
-	myHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp(c, "ok", data)
 }
 
 func AddUserRoleHandler(c *gin.Context) {
@@ -184,11 +185,11 @@ func AddUserRoleHandler(c *gin.Context) {
 	userClient := user.GetUserClient()
 	res, err := userClient.AddUserRole(c, addUserRoleRequest)
 
-	myHelper.CheckError(err, "获取用户角色列表失败")
+	ginHelper.CheckError(err, "获取用户角色列表失败")
 
 	data := res.GetData()
 
-	myHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp(c, "ok", data)
 }
 
 func DelUserRoleHandler(c *gin.Context) {
@@ -198,11 +199,11 @@ func DelUserRoleHandler(c *gin.Context) {
 	userClient := user.GetUserClient()
 	res, err := userClient.DelUserRole(c, delUserRoleRequest)
 
-	myHelper.CheckError(err, "删除用户角色失败")
+	ginHelper.CheckError(err, "删除用户角色失败")
 
 	data := res.GetData()
 
-	myHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp(c, "ok", data)
 }
 
 func GetRoleListHandler(c *gin.Context) {
@@ -212,11 +213,11 @@ func GetRoleListHandler(c *gin.Context) {
 	userClient := user.GetUserClient()
 	res, err := userClient.GetRoleList(c, getRoleListRequest)
 
-	myHelper.CheckError(err, "获取角色列表失败")
+	ginHelper.CheckError(err, "获取角色列表失败")
 
 	data := res.GetData()
 
-	myHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp(c, "ok", data)
 }
 
 func GetUserRoleListHandler(c *gin.Context) {
@@ -226,9 +227,9 @@ func GetUserRoleListHandler(c *gin.Context) {
 	userClient := user.GetUserClient()
 	res, err := userClient.GetUserRoleList(c, getUserRoleListRequest)
 
-	myHelper.CheckError(err, "获取角色列表失败")
+	ginHelper.CheckError(err, "获取角色列表失败")
 
 	data := res.GetData()
 
-	myHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp(c, "ok", data)
 }

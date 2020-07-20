@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	ginHelper "github.com/livegoplayer/go_gin_helper"
 	. "github.com/livegoplayer/go_helper"
 	myLogger "github.com/livegoplayer/go_logger"
 	"github.com/sirupsen/logrus"
@@ -18,8 +19,8 @@ func main() {
 	//默认有写入控制台的日志
 	// 把这两个处理器替换
 	r := gin.New()
-	r.NoMethod(HandleNotFound)
-	r.NoRoute(HandleNotFound)
+	r.NoMethod(ginHelper.HandleNotFound)
+	r.NoRoute(ginHelper.HandleNotFound)
 
 	//加载.env文件
 	LoadEnv()
@@ -37,7 +38,7 @@ func main() {
 		r.Use(gin.Logger())
 	}
 
-	r.Use(ErrHandler())
+	r.Use(ginHelper.ErrHandler())
 
 	//gin的格式化参数
 	//改造access log, 输出到文件
@@ -60,7 +61,7 @@ func main() {
 	myLogger.SetLogger(appLogger)
 
 	//解决跨域问题的中间件
-	r.Use(Cors())
+	r.Use(ginHelper.Cors())
 
 	//更换校验器
 	binding.Validator = ValidatorV10

@@ -3,7 +3,7 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
-	myHelper "github.com/livegoplayer/go_helper"
+	ginHelper "github.com/livegoplayer/go_gin_helper"
 )
 
 var redisClient *redis.Client
@@ -11,8 +11,8 @@ var prefix = ""
 
 func MyTestHandler(c *gin.Context) {
 	//myLogger.Info("test")
-	myHelper.SuccessResp(c, "ok")
-	myHelper.SuccessResp(c, "ok")
+	ginHelper.SuccessResp(c, "ok")
+	ginHelper.SuccessResp(c, "ok")
 	panic("sdfkj")
 }
 
