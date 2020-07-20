@@ -9,11 +9,12 @@ require (
 	github.com/go-redis/redis v6.15.8+incompatible
 	github.com/gopherjs/gopherjs v0.0.0-20200217142428-fce0ec30dd00 // indirect
 	github.com/jehiah/go-strftime v0.0.0-20171201141054-1d33003b3869 // indirect
+	github.com/jinzhu/gorm v1.9.15 // indirect
 	github.com/jinzhu/now v1.1.1 // indirect
 	github.com/jonboulle/clockwork v0.2.0 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/lib/pq v1.7.0 // indirect
-	github.com/livegoplayer/go_helper v1.0.37
+	github.com/livegoplayer/go_helper v1.0.38
 	github.com/livegoplayer/go_logger v1.0.12
 	github.com/livegoplayer/go_user_rpc v1.0.27
 	github.com/mitchellh/mapstructure v1.3.2 // indirect

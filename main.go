@@ -18,7 +18,6 @@ func main() {
 	//默认有写入控制台的日志
 	// 把这两个处理器替换
 	r := gin.New()
-	r.Use(gin.Recovery())
 	r.NoMethod(HandleNotFound)
 	r.NoRoute(HandleNotFound)
 
@@ -38,12 +37,16 @@ func main() {
 		r.Use(gin.Logger())
 	}
 
+	r.Use(ErrHandler())
+
 	//gin的格式化参数
 	//改造access log, 输出到文件
 	r.Use(myLogger.GetGinAccessFileLogger(viper.GetString("log.access_log_file_path"), viper.GetString("log.access_log_file_name")))
 	//如果是debug模式的话，使用logger另外打印一份输出到控制台的logger
 	if gin.IsDebugging() {
 		r.Use(gin.Logger())
+		//额外输出错误异常栈
+		r.Use(gin.Recovery())
 	}
 
 	//app_log
