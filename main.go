@@ -60,7 +60,7 @@ func main() {
 	myLogger.SetLogger(appLogger)
 
 	//解决跨域问题的中间件
-	r.Use(ginHelper.Cors())
+	r.Use(ginHelper.Cors(viper.GetStringSlice("client_list")))
 
 	//更换校验器
 	binding.Validator = ValidatorV10

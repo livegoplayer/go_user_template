@@ -11,7 +11,7 @@ require (
 	github.com/jonboulle/clockwork v0.2.0 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/lib/pq v1.7.0 // indirect
-	github.com/livegoplayer/go_gin_helper v1.0.5
+	github.com/livegoplayer/go_gin_helper v1.0.6
 	github.com/livegoplayer/go_helper v1.0.40
 	github.com/livegoplayer/go_logger v1.0.12
 	github.com/livegoplayer/go_user_rpc v1.0.29
