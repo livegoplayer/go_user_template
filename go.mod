@@ -11,7 +11,7 @@ require (
 	github.com/jonboulle/clockwork v0.2.0 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/lib/pq v1.7.0 // indirect
-	github.com/livegoplayer/go_gin_helper v1.0.1
+	github.com/livegoplayer/go_gin_helper v1.0.2
 	github.com/livegoplayer/go_helper v1.0.40
 	github.com/livegoplayer/go_logger v1.0.12
 	github.com/livegoplayer/go_user_rpc v1.0.28
@@ -22,7 +22,7 @@ require (
 	github.com/stretchr/testify v1.6.1 // indirect
 	golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899 // indirect
 	golang.org/x/sys v0.0.0-20200720211630-cb9d2d5c5666 // indirect
-	google.golang.org/genproto v0.0.0-20200720141249-1244ee217b7e // indirect
+	google.golang.org/genproto v0.0.0-20200721032028-5044d0edf986 // indirect
 	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776 // indirect
 )

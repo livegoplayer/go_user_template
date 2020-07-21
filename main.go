@@ -38,17 +38,16 @@ func main() {
 		r.Use(gin.Logger())
 	}
 
-	r.Use(ginHelper.ErrHandler())
-
 	//gin的格式化参数
 	//改造access log, 输出到文件
 	r.Use(myLogger.GetGinAccessFileLogger(viper.GetString("log.access_log_file_path"), viper.GetString("log.access_log_file_name")))
+
 	//如果是debug模式的话，使用logger另外打印一份输出到控制台的logger
 	if gin.IsDebugging() {
 		r.Use(gin.Logger())
 		//额外输出错误异常栈
-		r.Use(gin.Recovery())
 	}
+	r.Use(ginHelper.ErrHandler())
 
 	//app_log
 	//如果是debug模式的话，直接打印到控制台
