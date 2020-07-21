@@ -73,8 +73,10 @@ func LogoutHandler(c *gin.Context) {
 //子服务器请求检查是否登录
 func CheckTokenHandler(c *gin.Context) {
 	//设置本域名下的cookie
-	token := c.Request.FormValue("token")
-
+	token, err := c.Cookie("us_user_cookie")
+	if token == "" {
+		token = c.Request.FormValue("token")
+	}
 	//检查session是否存在
 	//如果没有token，证明没有登录
 	data := &checkUserStatusRes{}
