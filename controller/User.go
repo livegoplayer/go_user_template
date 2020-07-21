@@ -57,8 +57,43 @@ func LoginHandler(c *gin.Context) {
 func LogoutHandler(c *gin.Context) {
 	//设置本域名下的cookie
 	c.SetCookie("us_user_cookie", "", -1, "/", "", false, false)
+	logoutRequest := &userpb.LogoutRequest{}
+	err := c.Bind(logoutRequest)
+	ginHelper.CheckError(err)
 
-	ginHelper.SuccessResp(c, "ok")
+	userClient := user.GetUserClient()
+	response, err := userClient.Logout(c, logoutRequest)
+	ginHelper.CheckError(err)
+
+	data := response.GetData()
+
+	ginHelper.SuccessResp(c, "ok", data)
+}
+
+//子服务器请求检查是否登录
+func CheckTokenHandler(c *gin.Context) {
+	//设置本域名下的cookie
+	token := c.Request.FormValue("token")
+
+	//检查session是否存在
+	//如果没有token，证明没有登录
+	data := &checkUserStatusRes{}
+	if token == "" {
+		ginHelper.SuccessResp(c, "ok", data)
+	}
+
+	checkUserStatusRequest := &userpb.CheckUserStatusRequest{}
+	checkUserStatusRequest.Token = token
+
+	userClient := user.GetUserClient()
+	res, err := userClient.CheckUserStatus(c, checkUserStatusRequest)
+	ginHelper.CheckError(err, "检查用户登录状态失败")
+
+	data.UserSession = res.GetData().UserSession
+	data.IsLogin = res.GetData().IsLogin
+	data.Token = res.GetData().Token
+
+	ginHelper.SuccessResp(c, "ok", data)
 }
 
 func AddUserHandler(c *gin.Context) {
