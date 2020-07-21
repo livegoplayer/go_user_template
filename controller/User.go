@@ -17,7 +17,7 @@ func RegisterHandler(c *gin.Context) {
 	//验证一下二维码是否正确
 	CaptchaRes := myHelper.VerifyCaptchaWithId(captchaId, answer)
 	if !CaptchaRes {
-		ginHelper.ErrorResp(c, 1, "验证码验证失败")
+		ginHelper.ErrorResp(1, "验证码验证失败")
 	}
 
 	registerRequest := &userpb.RegisterRequest{}
@@ -32,7 +32,7 @@ func RegisterHandler(c *gin.Context) {
 	ginHelper.CheckError(err, "新建用户失败")
 	data := res.GetData()
 
-	ginHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp("ok", data)
 }
 
 func LoginHandler(c *gin.Context) {
@@ -51,7 +51,7 @@ func LoginHandler(c *gin.Context) {
 		c.SetCookie("us_user_cookie", data.Token, int(time.Hour.Seconds()*6), "/", "", false, false)
 	}
 
-	ginHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp("ok", data)
 }
 
 func LogoutHandler(c *gin.Context) {
@@ -67,7 +67,7 @@ func LogoutHandler(c *gin.Context) {
 
 	data := response.GetData()
 
-	ginHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp("ok", data)
 }
 
 //子服务器请求检查是否登录
@@ -81,7 +81,7 @@ func CheckTokenHandler(c *gin.Context) {
 	//如果没有token，证明没有登录
 	data := &checkUserStatusRes{}
 	if token == "" {
-		ginHelper.SuccessResp(c, "ok", data)
+		ginHelper.SuccessResp("ok", data)
 	}
 
 	checkUserStatusRequest := &userpb.CheckUserStatusRequest{}
@@ -95,7 +95,7 @@ func CheckTokenHandler(c *gin.Context) {
 	data.IsLogin = res.GetData().IsLogin
 	data.Token = res.GetData().Token
 
-	ginHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp("ok", data)
 }
 
 func AddUserHandler(c *gin.Context) {
@@ -109,7 +109,7 @@ func AddUserHandler(c *gin.Context) {
 
 	data := res.GetData()
 
-	ginHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp("ok", data)
 }
 
 func GetUserListHandler(c *gin.Context) {
@@ -126,7 +126,7 @@ func GetUserListHandler(c *gin.Context) {
 
 	data := res.GetData()
 
-	ginHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp("ok", data)
 }
 
 func DelUserHandler(c *gin.Context) {
@@ -140,7 +140,7 @@ func DelUserHandler(c *gin.Context) {
 
 	data := res.GetData()
 
-	ginHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp("ok", data)
 }
 
 type checkUserStatusRes struct {
@@ -156,7 +156,7 @@ func CheckUserStatusHandler(c *gin.Context) {
 	//如果没有token，证明没有登录
 	data := &checkUserStatusRes{}
 	if token == "" {
-		ginHelper.SuccessResp(c, "ok", data)
+		ginHelper.SuccessResp("ok", data)
 	}
 
 	checkUserStatusRequest := &userpb.CheckUserStatusRequest{}
@@ -170,7 +170,7 @@ func CheckUserStatusHandler(c *gin.Context) {
 	data.IsLogin = res.GetData().IsLogin
 	data.Token = res.GetData().Token
 
-	ginHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp("ok", data)
 }
 
 func CheckUserAuthorityHandler(c *gin.Context) {
@@ -184,7 +184,7 @@ func CheckUserAuthorityHandler(c *gin.Context) {
 
 	data := res.GetData()
 
-	ginHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp("ok", data)
 }
 
 func GetUserAuthorityListHandler(c *gin.Context) {
@@ -198,7 +198,7 @@ func GetUserAuthorityListHandler(c *gin.Context) {
 
 	data := res.GetData()
 
-	ginHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp("ok", data)
 }
 
 func GetAuthorityListHandler(c *gin.Context) {
@@ -212,7 +212,7 @@ func GetAuthorityListHandler(c *gin.Context) {
 
 	data := res.GetData()
 
-	ginHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp("ok", data)
 }
 
 func AddUserRoleHandler(c *gin.Context) {
@@ -226,7 +226,7 @@ func AddUserRoleHandler(c *gin.Context) {
 
 	data := res.GetData()
 
-	ginHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp("ok", data)
 }
 
 func DelUserRoleHandler(c *gin.Context) {
@@ -240,7 +240,7 @@ func DelUserRoleHandler(c *gin.Context) {
 
 	data := res.GetData()
 
-	ginHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp("ok", data)
 }
 
 func GetRoleListHandler(c *gin.Context) {
@@ -254,7 +254,7 @@ func GetRoleListHandler(c *gin.Context) {
 
 	data := res.GetData()
 
-	ginHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp("ok", data)
 }
 
 func GetUserRoleListHandler(c *gin.Context) {
@@ -268,5 +268,5 @@ func GetUserRoleListHandler(c *gin.Context) {
 
 	data := res.GetData()
 
-	ginHelper.SuccessResp(c, "ok", data)
+	ginHelper.SuccessResp("ok", data)
 }

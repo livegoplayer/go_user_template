@@ -11,8 +11,8 @@ var prefix = ""
 
 func MyTestHandler(c *gin.Context) {
 	//myLogger.Info("test")
-	ginHelper.SuccessResp(c, "ok")
-	ginHelper.SuccessResp(c, "ok")
+	ginHelper.SuccessResp("ok")
+	ginHelper.SuccessResp("ok")
 	panic("sdfkj")
 }
 
