@@ -82,9 +82,6 @@ func main() {
 	r.GET("/api/captcha/getCaptcha", CaptchaHandler)
 	r.GET("/test", MyTestHandler)
 
-	//以下是给子服务器请求的方法
-	r.POST("/api/user/checkToken", CheckTokenHandler)
-
 	err := r.Run(":9091") // 监听并在 9091 上启动服务
 	if err != nil {
 		fmt.Printf("user server start error : " + err.Error())
