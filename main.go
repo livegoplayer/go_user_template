@@ -11,7 +11,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 
-	. "github.com/livegoplayer/go_user/controller"
+	. "github.com/livegoplayer/go_user/routers"
 )
 
 func main() {
@@ -40,7 +40,7 @@ func main() {
 
 	//gin的格式化参数
 	//改造access log, 输出到文件
-	r.Use(myLogger.GetGinAccessFileLogger(viper.GetString("log.access_log_file_path"), viper.GetString("log.access_log_file_name")))
+	r.Use(myLogger.GetGinAccessFileLogger(viper.GetString("log.access_log_file_path"), viper.GetString("app_name")+"_"+viper.GetString("log.access_log_file_name")))
 
 	//如果是debug模式的话，使用logger另外打印一份输出到控制台的logger
 	if gin.IsDebugging() {
@@ -65,26 +65,11 @@ func main() {
 	//更换校验器
 	binding.Validator = ValidatorV10
 
-	r.POST("/api/user/register", RegisterHandler)
-	r.POST("/api/user/login", LoginHandler)
-	r.POST("/api/user/logout", LogoutHandler)
-	r.POST("/api/user/addUser", AddUserHandler)
-	r.POST("/api/user/delUser", DelUserHandler)
-	r.GET("/api/user/checkUserStatus", CheckUserStatusHandler)
-	r.GET("/api/user/checkUserAuthority", CheckUserAuthorityHandler)
-	r.GET("/api/user/getUserAuthorityList", GetUserAuthorityListHandler)
-	r.GET("/api/user/getAuthorityList", GetAuthorityListHandler)
-	r.POST("/api/user/addUserRole", AddUserRoleHandler)
-	r.POST("/api/user/delUserRole", DelUserRoleHandler)
-	r.GET("/api/user/getRoleList", GetRoleListHandler)
-	r.GET("/api/user/getUserRoleList", GetUserRoleListHandler)
-	r.GET("/api/user/getUserList", GetUserListHandler)
-	r.GET("/api/captcha/getCaptcha", CaptchaHandler)
-	r.GET("/test", MyTestHandler)
+	InitAppRouter(r)
 
-	err := r.Run(":9091") // 监听并在 9091 上启动服务
+	err := r.Run(":" + viper.GetString("app_port"))
 	if err != nil {
-		fmt.Printf("user server start error : " + err.Error())
+		fmt.Printf("server start error : " + err.Error())
 		return
 	}
 }
