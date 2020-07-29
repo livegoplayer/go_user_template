@@ -12,7 +12,7 @@ func InitAppRouter(r gin.IRoutes) {
 	r.POST("/api/user/logout", LogoutHandler)
 	r.POST("/api/user/addUser", AddUserHandler)
 	r.POST("/api/user/delUser", DelUserHandler)
-	r.GET("/api/user/checkUserStatus", CheckUserStatusHandler)
+	r.POST("/api/user/checkUserStatus", CheckUserStatusHandler)
 	r.GET("/api/user/checkUserAuthority", CheckUserAuthorityHandler)
 	r.GET("/api/user/getUserAuthorityList", GetUserAuthorityListHandler)
 	r.GET("/api/user/getAuthorityList", GetAuthorityListHandler)

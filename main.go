@@ -11,6 +11,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 
+	. "github.com/livegoplayer/go_user/controller"
 	. "github.com/livegoplayer/go_user/routers"
 )
 
@@ -66,6 +67,10 @@ func main() {
 	binding.Validator = ValidatorV10
 
 	InitAppRouter(r)
+
+	if !gin.IsDebugging() {
+		ginHelper.AuthenticationMiddleware(CommonCheckTokenHandler)
+	}
 
 	err := r.Run(":" + viper.GetString("app_port"))
 	if err != nil {
