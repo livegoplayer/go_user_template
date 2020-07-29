@@ -9,7 +9,6 @@
   "app_port" : "9091",
 
   "auth_middleware": true,
-  "user_app_host" : "http://127.0.0.1:8080/main",
 
   "log" : {
     "access_log_file_path" : "../log",
