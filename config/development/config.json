@@ -1,14 +1,14 @@
 {
   "client_list" : [
-    "http://127.0.0.1:8081",
-    "http://127.0.0.1:8080"
+    "http://testlocal.52db.xyz:8081",
+    "http://testlocal.52db.work:8080"
   ],
 
   "app_name" : "user",
-  "app_host" : "http://127.0.0.1:9091",
-  "app_port" : "9091",
+  "app_host" : "http://testlocal.52db.work:9090",
+  "app_port" : "9090",
 
-  "auth_middleware": true,
+  "sso_host": "testlocal.52db.work:8888",
 
   "log" : {
     "access_log_file_path" : "../log",

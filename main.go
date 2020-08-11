@@ -8,6 +8,7 @@ import (
 	ginHelper "github.com/livegoplayer/go_gin_helper"
 	. "github.com/livegoplayer/go_helper"
 	myLogger "github.com/livegoplayer/go_logger"
+	userRpc "github.com/livegoplayer/go_user_rpc/user"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 
@@ -72,6 +73,9 @@ func main() {
 		ginHelper.AuthenticationMiddleware(CommonCheckTokenHandler)
 	}
 
+	userRpc.InitUserClient(viper.GetString("sso_host"))
+
+	fmt.Printf("userClient connect success")
 	err := r.Run(":" + viper.GetString("app_port"))
 	if err != nil {
 		fmt.Printf("server start error : " + err.Error())

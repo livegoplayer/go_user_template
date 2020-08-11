@@ -48,6 +48,10 @@ func LoginHandler(c *gin.Context) {
 
 	data := res.GetData()
 
+	if res.GetErrorCode() == 1 {
+		ginHelper.ErrorResp(1, res.GetMsg())
+	}
+
 	//设置本域名下的cookie
 	if data.Uid > 0 {
 		c.SetCookie("us_user_cookie", data.Token, int(time.Hour.Seconds()*6), "/", "", false, false)
