@@ -1,13 +1,13 @@
 {
   "client_list" : [
     "http://www.52db.xyz",
-    "http://www.52db.work"
+    "http://www.52db.club"
   ],
 
   "app_name" : "user",
   "app_host" : "http://club.52db.xyz",
   "app_port" : "81",
-  "sso_host": "www.52db.work:8080",
+  "sso_host": "www.52db.club:8080",
 
   "log" : {
     "access_log_file_path" : "../log",
