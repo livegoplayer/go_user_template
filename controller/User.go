@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -54,6 +55,8 @@ func LoginHandler(c *gin.Context) {
 
 	//设置本域名下的cookie
 	if data.Uid > 0 {
+		//支持跨域设置cookie
+		c.SetSameSite(http.SameSiteNoneMode)
 		c.SetCookie("us_user_cookie", data.Token, int(time.Hour.Seconds()*6), "/", "", false, false)
 	}
 
