@@ -1,9 +1,9 @@
 version: '3'
 
 services:
- go_server_rpc:
+ go_server:
    build: ./
-   container_name: go_user_rpc
+   container_name: go_user
    extra_hosts:
       - "www.52db.club:127.0.0.1"
    ports:
