@@ -5,7 +5,7 @@ services:
    build: ./
    container_name: go_user
    extra_hosts:
-      - "www.52db.club:172.19.139.129"
+      - "www.52db.club:139.224.132.234"
    ports:
       - "81:80"
    volumes:
