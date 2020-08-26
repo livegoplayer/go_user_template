@@ -13,6 +13,5 @@ services:
       # 日志存放路径，需要同级目录创建本目录
       - ../log:/apps/log
    working_dir: /apps/go_user
-   command: sleep 3600
-
+   command: ./main
 
