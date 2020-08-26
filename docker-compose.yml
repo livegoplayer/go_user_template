@@ -18,7 +18,7 @@ services:
    working_dir: /apps/go_user
    command: ./main
 
-  go_server_2:
+ go_server_2:
    build: ./
    container_name: go_user_2
    environment:
