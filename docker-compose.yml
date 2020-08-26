@@ -7,7 +7,7 @@ services:
    extra_hosts:
       - "www.52db.club:127.0.0.1"
    ports:
-      - "80:80"
+      - "81:80"
    volumes:
       - ../:/apps
       # 日志存放路径，需要同级目录创建本目录
