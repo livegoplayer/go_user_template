@@ -6,9 +6,9 @@
   ],
 
   "app_name" : "user",
-  "app_host" : "http://club.52db.xyz",
+  "app_host" : "http://www.52db.club",
   "app_port" : "80",
-  "sso_host": "www.52db.club:8080",
+  "sso_host": "www.52db.club:8888",
 
   "log" : {
     "access_log_file_path" : "../log",
