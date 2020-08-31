@@ -15,7 +15,7 @@ require (
 	github.com/lib/pq v1.7.0 // indirect
 	github.com/livegoplayer/go_gin_helper v1.0.18
 	github.com/livegoplayer/go_helper v1.0.43
-	github.com/livegoplayer/go_logger v1.0.15
+	github.com/livegoplayer/go_logger v1.0.16
 	github.com/livegoplayer/go_user_rpc v1.0.34
 	github.com/magiconair/properties v1.8.2 // indirect
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect

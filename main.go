@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin/binding"
 	ginHelper "github.com/livegoplayer/go_gin_helper"
 	. "github.com/livegoplayer/go_helper"
-	myLogger "github.com/livegoplayer/go_logger"
+	myLogger "github.com/livegoplayer/go_logger/logger"
 	userRpc "github.com/livegoplayer/go_user_rpc/user"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -73,6 +73,7 @@ func main() {
 		ginHelper.AuthenticationMiddleware(CommonCheckTokenHandler)
 	}
 
+	myLogger.Info("1")
 	userRpc.InitUserClient(viper.GetString("sso_host"))
 
 	fmt.Printf("userClient connect success")
