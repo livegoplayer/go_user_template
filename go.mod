@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	github.com/denisenkom/go-mssqldb v0.0.0-20200620013148-b91950f658ec // indirect
+	github.com/fullstorydev/grpcurl v1.7.0 // indirect
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-redis/redis v6.15.9+incompatible // indirect
 	github.com/gopherjs/gopherjs v0.0.0-20200217142428-fce0ec30dd00 // indirect
