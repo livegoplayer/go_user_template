@@ -4,26 +4,25 @@
     "http://www.52db.club",
     "https://user.52db.club",
     "http://user.52db.club",
-    "http://139.224.132.234"
   ],
 
   "app_name" : "user",
   "app_host" : "http://www.52db.club",
   "app_port" : "80",
-  "sso_host": "139.224.132.234:32000",
+  "sso_host": "127.0.0.1:5672",
 
   "log" : {
     "access_log_file_path" : "../log",
     "access_log_file_name" : "access.log",
-    "app_log_mysql_host": "139.224.132.234",
-    "app_log_mysql_port": "30306",
+    "app_log_mysql_host": "127.0.0.1",
+    "app_log_mysql_port": "3306",
     "app_log_mysql_db_name": "user",
     "app_log_mysql_table_name": "us_app_log",
     "app_log_mysql_user": "myuser",
     "app_log_mysql_pass": "myuser",
     "log_with_rabbitmq": true,
     "rabbimq":{
-      "url": "amqp://guest:guest@139.224.132.234:31001/",
+      "url": "amqp://guest:guest@127.0.0.1:5672/",
       "routingKey": "log_go_user",
       "exchange": "log"
     }
